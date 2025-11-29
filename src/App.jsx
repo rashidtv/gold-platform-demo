@@ -5,66 +5,16 @@ import './App.css';
 // Your deployed contract address from the deployment output
 const CONTRACT_ADDRESS = "0x5fbdb2315678afecb367f032d93f642f64180aa3";
 
-// GoldPlatform ABI - simplified version for basic functions
 const contractABI = [
-  {
-    "inputs": [],
-    "name": "getTotalGoldBars",
-    "outputs": [{"internalType": "uint256", "name": "", "type": "uint256"}],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [{"internalType": "uint256", "name": "_tokenId", "type": "uint256"}],
-    "name": "getGoldBarDetails",
-    "outputs": [
-      {"internalType": "uint256", "name": "weight", "type": "uint256"},
-      {"internalType": "uint256", "name": "purity", "type": "uint256"},
-      {"internalType": "string", "name": "mineOrigin", "type": "string"},
-      {"internalType": "string", "name": "refinery", "type": "string"},
-      {"internalType": "uint256", "name": "mintDate", "type": "uint256"},
-      {"internalType": "address", "name": "owner", "type": "address"},
-      {"internalType": "string", "name": "vaultLocation", "type": "string"}
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [{"internalType": "uint256", "name": "_barTokenId", "type": "uint256"}],
-    "name": "getSupplyChainHistory",
-    "outputs": [{"internalType": "string[]", "name": "", "type": "string[]"}],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {"internalType": "uint256", "name": "_weight", "type": "uint256"},
-      {"internalType": "uint256", "name": "_purity", "type": "uint256"},
-      {"internalType": "string", "name": "_mineOrigin", "type": "string"},
-      {"internalType": "string", "name": "_refinery", "type": "string"},
-      {"internalType": "string", "name": "_vaultLocation", "type": "string"}
-    ],
-    "name": "mintGoldCertificate",
-    "outputs": [{"internalType": "uint256", "name": "", "type": "uint256"}],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [{"internalType": "uint256", "name": "_tokenId", "type": "uint256"}],
-    "name": "goldBars",
-    "outputs": [
-      {"internalType": "uint256", "name": "tokenId", "type": "uint256"},
-      {"internalType": "uint256", "name": "weight", "type": "uint256"},
-      {"internalType": "uint256", "name": "purity", "type": "uint256"},
-      {"internalType": "string", "name": "mineOrigin", "type": "string"},
-      {"internalType": "string", "name": "refinery", "type": "string"},
-      {"internalType": "uint256", "name": "mintDate", "type": "uint256"},
-      {"internalType": "address", "name": "currentOwner", "type": "address"},
-      {"internalType": "string", "name": "vaultLocation", "type": "string"}
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  }
+  "function getTotalGoldBars() view returns (uint256)",
+  "function getGoldBarDetails(uint256) view returns (uint256 weight, uint256 purity, string mineOrigin, string refinery, uint256 mintDate, address owner, string vaultLocation)",
+  "function getSupplyChainHistory(uint256) view returns (string[])",
+  "function mintGoldCertificate(uint256, uint256, string, string, string) returns (uint256)",
+  "function goldBars(uint256) view returns (uint256, uint256, string, string, uint256, address, string)",
+  "function certificateOwners(uint256) view returns (address)",
+  "function platformOperator() view returns (address)",
+  "event CertificateMinted(uint256, uint256, uint256, string)",
+  "event CertificateTransferred(uint256, address, address)"
 ];
 
 // BigInt conversion utility
