@@ -3,7 +3,7 @@ import { ethers } from 'ethers';
 import './App.css';
 
 // Your deployed contract address from the deployment output
-const CONTRACT_ADDRESS = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
+const CONTRACT_ADDRESS = import.meta.env.VITE_CONTRACT_ADDRESS || "0x5FbDB2315678afecb367f032d93F642f64180aa3";
 
 // GoldPlatform ABI - simplified version for basic functions
 const contractABI = [
