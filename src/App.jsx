@@ -3,7 +3,7 @@ import { ethers } from 'ethers';
 import './App.css';
 
 // Your deployed contract address from the deployment output
-const CONTRACT_ADDRESS = import.meta.env.VITE_CONTRACT_ADDRESS || "0x5FbDB2315678afecb367f032d93F642f64180aa3";
+const CONTRACT_ADDRESS = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
 
 // GoldPlatform ABI - simplified version for basic functions
 const contractABI = [
@@ -17,6 +17,14 @@ const contractABI = [
   "event CertificateMinted(uint256, uint256, uint256, string)",
   "event CertificateTransferred(uint256, address, address)"
 ];
+
+// BigInt conversion utility
+const convertBigInt = (value) => {
+  if (typeof value === 'bigint') {
+    return Number(value);
+  }
+  return value;
+};
 
 function App() {
   const [account, setAccount] = useState('');
@@ -60,13 +68,14 @@ function App() {
       
       for (let i = 0; i < totalBars; i++) {
         const details = await contractInstance.getGoldBarDetails(i);
+        // Convert BigInt values to numbers
         bars.push({
           tokenId: i,
-          weight: details[0],
-          purity: details[1],
+          weight: convertBigInt(details[0]),
+          purity: convertBigInt(details[1]),
           mineOrigin: details[2],
           refinery: details[3],
-          mintDate: details[4],
+          mintDate: convertBigInt(details[4]),
           owner: details[5],
           vaultLocation: details[6]
         });
@@ -102,7 +111,7 @@ function App() {
   };
 
   const getTotalGoldWeight = () => {
-    return goldBars.reduce((sum, bar) => sum + Number(bar.weight), 0) / 1000;
+    return goldBars.reduce((sum, bar) => sum + bar.weight, 0) / 1000;
   };
 
   return (
